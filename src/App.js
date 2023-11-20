@@ -1,14 +1,14 @@
-import "./App.css";
-import Home from "./pages/Root";
-import Root from "./pages/Home";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import Profile from "./pages/Profile";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import './App.min.css'
+import Home from './pages/Root'
+import Root from './pages/Home'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
+import Profile from './pages/Profile'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Home />,
     children: [
       {
@@ -16,23 +16,23 @@ const router = createBrowserRouter([
         element: <Root />,
       },
       {
-        path: "user/signin",
+        path: 'user/signin',
         element: <SignIn />,
       },
       {
-        path: "user/signup",
+        path: 'user/signup',
         element: <SignUp />,
       },
       {
-        path: "user/profile",
+        path: 'user/profile',
         element: <Profile />,
       },
     ],
   },
-]);
+])
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />
 }
 
-export default App;
+export default App

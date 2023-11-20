@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { userUpdate } from "../features/slices/userUpdateSlice";
-import { userPost } from "../features/slices/userSlice";
+import { userUpdate } from '../features/slices/userUpdateSlice'
+import { userPost } from '../features/slices/userSlice'
+import Button from './Button'
 
 const EditNameForm = ({ onClickToggle, onClickToggleSave }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const user = useSelector((state) => state.user.userName);
-  const firstName = useSelector((state) => state.user.firstName);
-  const lastName = useSelector((state) => state.user.lastName);
-  const token = JSON.parse(localStorage.getItem("token"));
+  const user = useSelector((state) => state.user.userName)
+  const firstName = useSelector((state) => state.user.firstName)
+  const lastName = useSelector((state) => state.user.lastName)
+  const token = JSON.parse(localStorage.getItem('token'))
 
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState('')
 
   useEffect(() => {
-    setUserName(user);
-  }, [user]);
+    setUserName(user)
+  }, [user])
 
   const SaveUserName = (e) => {
-    e.preventDefault();
-    dispatch(userUpdate({ token, userName }));
-    dispatch(userPost({ token }));
-  };
+    e.preventDefault()
+    dispatch(userUpdate({ token, userName }))
+    dispatch(userPost({ token }))
+  }
 
   return (
     <form className='edit-form-content'>
@@ -48,18 +49,18 @@ const EditNameForm = ({ onClickToggle, onClickToggleSave }) => {
       </div>
       <div className='edit-form-buttons'>
         <div className='test' onClick={SaveUserName}>
-          <button className='sign-in-button' onClick={onClickToggleSave}>
+          <Button onClick={onClickToggleSave}>
             Save
-          </button>
+          </Button>
         </div>
         <div className='test'>
-          <button className='sign-in-button' onClick={onClickToggle}>
+          <Button onClick={onClickToggle}>
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default EditNameForm;
+export default EditNameForm

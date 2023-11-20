@@ -56,6 +56,15 @@ body {
   margin-right: 0.5rem;
 }
 
+/* ADDED  */
+
+.main-nav-items {
+  display: flex;
+  align-items: center;
+}
+
+/*  */
+
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -175,10 +184,14 @@ body {
 }
 
 
-/* ADDED for user/signup form*/
+/* ADDED */
+.fa {
+  font-size: 1.3rem;
+  margin: 0 5px;
+}
 
 .edit-form-content {
-  max-width: 340px;
+  max-width: 350px;
   margin: 0px auto;
   padding: 10px;
 }
@@ -225,11 +238,13 @@ input:disabled {
 .test {
   width: 100%;
 }
+
 /*  */
 
 
 .sign-in-icon {
   font-size: 5rem;
+  color: #00bc77;
 }
 
 .input-remember {
@@ -319,10 +334,12 @@ input:disabled {
   margin-bottom: 2rem;
 }
 
-/* Added */
+/* ADDED */
+
 .header h1 {
   padding-top: 0.9rem;
 }
+
 /*  */
 
 .transaction-button {
@@ -349,17 +366,4 @@ input:disabled {
   .transaction-button {
     max-width: 200px;
   }
-}
-
-
-/* Style added */
-
-.main-nav-items {
-  display: flex;
-  align-items: center;
-}
-
-.fa {
-  font-size: 1.3rem;
-  margin: 0 5px;
 }

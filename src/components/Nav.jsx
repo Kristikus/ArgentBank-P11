@@ -1,16 +1,16 @@
-import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/slices/loginSlice";
+import { Link, NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../features/slices/loginSlice'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
 
 const Nav = () => {
-  const dispatch = useDispatch();
-  const login = useSelector((state) => state.signin.login);
-  const userName = useSelector((state) => state.user.userName);
+  const dispatch = useDispatch()
+  const token = JSON.parse(localStorage.getItem('token'))
+  const userName = useSelector((state) => state.user.userName)
 
   return (
     <>
@@ -18,12 +18,13 @@ const Nav = () => {
         <Link to='/' className='main-nav-logo'>
           <img
             className='main-nav-logo-image'
-            src={require("../designs/img/argentBankLogo.png")}
+            src={require('../designs/img/argentBankLogo.png')}
             alt='Argent Bank Logo'
+            loading='lazy'
           />
           <h1 className='sr-only'>Argent Bank</h1>
         </Link>
-        {!login ? (
+        {!token ? (
           <NavLink to='user/signin' className='main-nav-item'>
             <FontAwesomeIcon
               className='fa fa-user-circle'
@@ -36,8 +37,8 @@ const Nav = () => {
               to='user/profile'
               className={({ isActive }) =>
                 isActive
-                  ? "main-nav-item router-link-exact-active"
-                  : "main-nav-item"
+                  ? 'main-nav-item router-link-exact-active'
+                  : 'main-nav-item'
               }
             >
               {userName}
@@ -55,7 +56,7 @@ const Nav = () => {
         )}
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Nav;
+export default Nav

@@ -1,46 +1,55 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 
-import { logout, signInUser } from "../features/slices/loginSlice";
-import { userPost } from "../features/slices/userSlice";
+import { signInUser } from '../features/slices/loginSlice'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import Button from '../components/Button'
 
 const SignIn = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const login = useSelector((state) => state.signin.login);
-  const loginStatus = useSelector((state) => state.signin.status);
-  const error = useSelector((state) => state.signin.error);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [checked, setChecked] = useState(false)
+  const [emptyFormError, setEmptyFormError] = useState('')
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = JSON.parse(localStorage.getItem('token'))
+
+  const login = useSelector((state) => state.signin.login)
+  let error = useSelector((state) => state.signin.error)
+
+  const errorToDisplay = emptyFormError || error
 
   useEffect(() => {
     if (error) {
-      return () => {
-        dispatch(logout());
-      };
+      setEmptyFormError('')
     }
-    else if(loginStatus === "fulfilled" && login && token) {
-      dispatch(userPost({ token }));
-      navigate("/user/profile");
+    if (login && token) {
+      navigate('/user/profile')
     }
-  }, [login, loginStatus, token, error, dispatch, navigate]);
+  }, [error, dispatch, login, token, navigate])
 
   const handleLogin = (e) => {
-    e.preventDefault();
-    dispatch(signInUser({ email, password }));
-  };
+    e.preventDefault()
+    if (email !== '' && password !== '') {
+      dispatch(signInUser({ email, password }))
+      return
+    }
+    setEmptyFormError('Veullez remplir tous les champs du formulaire')
+  }
 
   const handleGoToSignUp = (e) => {
-    e.preventDefault();
-    navigate("/user/signup");
-  };
+    e.preventDefault()
+    navigate('/user/signup')
+  }
+
+  const toggleChecked = () => {
+    setChecked((state) => !state)
+  }
 
   return (
     <>
@@ -57,7 +66,6 @@ const SignIn = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {/* {error && <div className="">{error}</div>} */}
             </div>
             <div className='input-wrapper'>
               <label htmlFor='password'>Password</label>
@@ -68,14 +76,21 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {error && <div className='sign-in-error'>{error}</div>}
+            {errorToDisplay && (
+              <div className='sign-in-error'>{errorToDisplay}</div>
+            )}
             <div className='input-remember'>
-              <input type='checkbox' id='remember-me' />
+              <input
+                type='checkbox'
+                id='remember-me'
+                defaultChecked={checked}
+                onChange={toggleChecked}
+              />
               <label htmlFor='remember-me'>Remember me</label>
             </div>
-            <button className='sign-in-button' onClick={handleLogin}>
+            <Button onClick={handleLogin}>
               Sign In
-            </button>
+            </Button>
             <div className=''>Don't have an account ?</div>
             <Link
               to='user/signup'
@@ -88,7 +103,7 @@ const SignIn = () => {
         </section>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

@@ -1,52 +1,52 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { USER_URL } from "../USER_URL";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { USER_URL } from '../USER_URL'
 
 export const userUpdate = createAsyncThunk(
-  "update/userUpdate",
+  'update/userUpdate',
   async ({ token, userName }, { rejectWithValue }) => {
     try {
       const response = await fetch(`${USER_URL}/profile`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json; charset=utf-8",
+          'Content-Type': 'application/json; charset=utf-8',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           userName: userName,
         }),
-      });
-      const data = await response.json();
-      console.log("user succesfully updated : ", data.body.userName);
-      return data;
+      })
+      const data = await response.json()
+      console.log('user succesfully updated : ', data.body.userName)
+      return data
     } catch (error) {
-      console.log("Failed to update user");
-      return rejectWithValue(error.message);
+      console.log('Failed to update user')
+      return rejectWithValue(error.message)
     }
   }
-);
+)
 
 const initialState = {
-  status: "void",
+  status: 'void',
   error: null,
-};
+}
 
 const userUpdateSlice = createSlice({
-  name: "update",
+  name: 'update',
   initialState,
   extraReducers: (builder) => {
     builder
       .addCase(userUpdate.pending, (state) => {
-        state.status = "pending";
+        state.status = 'pending'
       })
       .addCase(userUpdate.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.error = null;
+        state.status = 'fulfilled'
+        state.error = null
       })
       .addCase(userUpdate.rejected, (state, action) => {
-        state.status = "rejected";
-        state.error = action.payload;
-      });
+        state.status = 'rejected'
+        state.error = action.payload
+      })
   },
-});
+})
 
-export default userUpdateSlice.reducer;
+export default userUpdateSlice.reducer

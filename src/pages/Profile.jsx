@@ -1,19 +1,34 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import EditNameForm from "../components/EditNameForm";
+import EditNameForm from '../components/EditNameForm'
+import Transaction from '../components/Transaction'
+import { userPost } from '../features/slices/userSlice'
+import Button from '../components/Button'
 
 const Profile = () => {
-  const userName = useSelector((state) => state.user.userName);
-  const login = useSelector((state) => state.signin.login);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const [toggleEditForm, setToggleEditForm] = useState(false);
+  const userName = useSelector((state) => state.user.userName)
+  const token = JSON.parse(localStorage.getItem('token'))
+
+  const [toggleEditForm, setToggleEditForm] = useState(false)
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/user/signin')
+      return
+    }
+    dispatch(userPost({ token }))
+  }, [token, navigate, dispatch])
 
   const toggleEdit = () => {
-    if (login) {
-      setToggleEditForm((current) => !current);
+    if (token) {
+      setToggleEditForm((current) => !current)
     }
-  };
+  }
 
   return (
     <>
@@ -21,7 +36,10 @@ const Profile = () => {
         <div className='header'>
           {toggleEditForm ? (
             <>
-              <EditNameForm onClickToggle={toggleEdit} onClickToggleSave={toggleEdit} />
+              <EditNameForm
+                onClickToggle={toggleEdit}
+                onClickToggleSave={toggleEdit}
+              />
             </>
           ) : (
             <>
@@ -30,46 +48,31 @@ const Profile = () => {
                 <br />
                 {userName}
               </h1>
-              <button className='edit-button' onClick={toggleEdit}>
+              <Button className={'edit-button'} onClick={toggleEdit}>
                 Edit Name
-              </button>
+              </Button>
             </>
           )}
         </div>
         <h2 className='sr-only'>Accounts</h2>
-        <section className='account'>
-          <div className='account-content-wrapper'>
-            <h3 className='account-title'>Argent Bank Checking (x8349)</h3>
-            <p className='account-amount'>$2,082.79</p>
-            <p className='account-amount-description'>Available Balance</p>
-          </div>
-          <div className='account-content-wrapper cta'>
-            <button className='transaction-button'>View transactions</button>
-          </div>
-        </section>
-        <section className='account'>
-          <div className='account-content-wrapper'>
-            <h3 className='account-title'>Argent Bank Savings (x6712)</h3>
-            <p className='account-amount'>$10,928.42</p>
-            <p className='account-amount-description'>Available Balance</p>
-          </div>
-          <div className='account-content-wrapper cta'>
-            <button className='transaction-button'>View transactions</button>
-          </div>
-        </section>
-        <section className='account'>
-          <div className='account-content-wrapper'>
-            <h3 className='account-title'>Argent Bank Credit Card (x8349)</h3>
-            <p className='account-amount'>$184.30</p>
-            <p className='account-amount-description'>Current Balance</p>
-          </div>
-          <div className='account-content-wrapper cta'>
-            <button className='transaction-button'>View transactions</button>
-          </div>
-        </section>
+        <Transaction
+          title='Argent Bank Checking (x8349)'
+          amount='$2,082.79'
+          description='Available Balance'
+        />
+        <Transaction
+          title='Argent Bank Savings (x6712)'
+          amount='$10,928.42'
+          description='Available Balance'
+        />
+        <Transaction
+          title='Argent Bank Credit Card (x8349)'
+          amount='$184.30'
+          description='Current Balance'
+        />
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
