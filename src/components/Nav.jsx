@@ -18,7 +18,7 @@ const Nav = () => {
         <Link to='/' className='main-nav-logo'>
           <img
             className='main-nav-logo-image'
-            src={require('../designs/img/argentBankLogo.png')}
+            src={require('../designs/img/argentBankLogo.webp')}
             alt='Argent Bank Logo'
             loading='lazy'
           />
