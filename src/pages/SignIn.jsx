@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
 import { signInUser } from '../features/slices/loginSlice'
+import Button from '../components/Button'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import Button from '../components/Button'
 
 const SignIn = () => {
   const dispatch = useDispatch()

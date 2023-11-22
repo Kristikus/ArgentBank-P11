@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { signUpUser } from '../features/slices/signupSlice'
+import Button from '../components/Button'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import Button from '../components/Button'
 
 const SignUp = () => {
   const dispatch = useDispatch()

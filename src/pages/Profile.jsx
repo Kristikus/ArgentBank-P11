@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import EditNameForm from '../components/EditNameForm'
 import Transaction from '../components/Transaction'
-import { userPost } from '../features/slices/userSlice'
 import Button from '../components/Button'
+import { userPost } from '../features/slices/userSlice'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -37,7 +37,7 @@ const Profile = () => {
           {toggleEditForm ? (
             <>
               <EditNameForm
-                onClickToggle={toggleEdit}
+                onClickToggleCancel={toggleEdit}
                 onClickToggleSave={toggleEdit}
               />
             </>

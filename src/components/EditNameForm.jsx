@@ -5,7 +5,7 @@ import { userUpdate } from '../features/slices/userUpdateSlice'
 import { userPost } from '../features/slices/userSlice'
 import Button from './Button'
 
-const EditNameForm = ({ onClickToggle, onClickToggleSave }) => {
+const EditNameForm = ({ onClickToggleCancel, onClickToggleSave }) => {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user.userName)
@@ -54,7 +54,7 @@ const EditNameForm = ({ onClickToggle, onClickToggleSave }) => {
           </Button>
         </div>
         <div className='test'>
-          <Button onClick={onClickToggle}>
+          <Button onClick={onClickToggleCancel}>
             Cancel
           </Button>
         </div>

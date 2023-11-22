@@ -1,6 +1,17 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { userPost } from '../features/slices/userSlice'
 import Feature from '../components/Feature'
 
 const Home = () => {
+  const dispatch = useDispatch()
+  const token = JSON.parse(localStorage.getItem('token'))
+  useEffect(() => {
+    if (token) {
+      dispatch(userPost({ token }))
+    }
+  }, [token, dispatch])
+
   return (
     <>
       <main>
